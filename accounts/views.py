@@ -78,3 +78,14 @@ class UserUpdate(LoginRequiredMixin, UpdateView):
         if not request.user.is_authenticated:
             return redirect('home')
         return super(UserUpdate, self).dispatch(request, *args, **kwargs)
+
+
+class UserInfo(LoginRequiredMixin, DetailView):
+    template_name = 'accounts/profile_info.html'
+    model = User
+    context_object_name = 'profile'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('home')
+        return super(UserInfo, self).dispatch(request, *args, **kwargs)
