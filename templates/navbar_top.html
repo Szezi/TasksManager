@@ -9,7 +9,7 @@
       </div>
       <ul class="navbar-nav  justify-content-end">
         <li class="nav-item d-flex align-items-center">
-          <a href="" class="nav-link text-body font-weight-bold px-0">
+          <a href="{% url 'profile-detail' %}" class="nav-link text-body font-weight-bold px-0">
             <span class="d-sm-inline me-sm-3">
               Hello {{request.user|title}}
             </span>
@@ -21,14 +21,14 @@
           </a>
           <ul class="dropdown-menu  dropdown-menu-end  px-2 py-2 me-sm-n2" aria-labelledby="dropdownMenuButton">
                 <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="">
+                  <a class="dropdown-item border-radius-md" href="{% url 'profile-update' %}">
                     <div class="d-flex py-1">
                       <div class="my-auto">
                         <i class="fa fa-user me-sm-3"></i>
                       </div>
                       <div class="d-flex flex-column justify-content-center">
                         <h6 class="text-sm font-weight-normal mb-1">
-                          <span class="font-weight-bold">Profile</span>
+                          <span class="font-weight-bold">Profile update</span>
                         </h6>
                       </div>
                     </div>
