@@ -13,7 +13,7 @@ class User(AbstractUser):
     city = models.CharField(max_length=100, default='Unknown city')
     phoneNumber = models.IntegerField(default=555666333)
     bio = models.CharField(max_length=225, default='Users bio')
-    avatar = models.ImageField(null=True, default="avatar.svg")
+    avatar = models.ImageField(null=True, default="default-avatar")
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
