@@ -37,11 +37,11 @@
               <ul class="list-group">
                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Password:</strong> &nbsp; *********</li>
                 <li class="list-group-item border-0 px-0">
-                  <a href="" class="btn btn-link pe-3 ps-0 mb-0 ms-auto">Change password</a>
+                  <a href="{% url 'password-change' %}" class="btn btn-link pe-3 ps-0 mb-0 ms-auto">Change password</a>
                 </li>
                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{profile.email}}</li>
                 <li class="list-group-item border-0 px-0">
-                  <a href="" class="btn btn-link pe-3 ps-0 mb-0 ms-auto">Change email</a>
+                  <a href="{% url 'email-change' %}" class="btn btn-link pe-3 ps-0 mb-0 ms-auto">Change email</a>
                 </li>
               </ul>
             </div>

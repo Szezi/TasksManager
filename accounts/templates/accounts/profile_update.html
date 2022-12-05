@@ -37,13 +37,13 @@
                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Password:</strong> &nbsp; *********</li>
                 <li class="list-group-item border-0 px-0">
                   <div class="form-check form-switch ps-0">
-                    <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto" href="javascript:;">Change password</a>
+                    <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto" href="{% url 'password-change' %}">Change password</a>
                   </div>
                 </li>
                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{profile.user.email}}</li>
                 <li class="list-group-item border-0 px-0">
                   <div class="form-check form-switch ps-0">
-                    <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto" href="javascript:;">Change email</a>
+                    <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto" href="{% url 'email-change' %}">Change email</a>
                   </div>
                 </li>
               </ul>
@@ -68,20 +68,20 @@
                  {% csrf_token %}
                  <ul class="list-group">
                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Username:</strong> &nbsp; {{profile.user.username}}</li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Description:</strong> </li>
+                    <input type="text" id="description" name="description" class="form-control" value="{{profile.description}}" aria-label="description" aria-describedby="description-addon">
                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">First Name:</strong> </li>
-                    <input type="text" id="description" name="description" class="form-control" placeholder="{{profile.description}}" aria-label="description" aria-describedby="description-addon">
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">First Name:</strong> </li>
-                    <input type="text" id="first_name" name="first_name" class="form-control" placeholder="{{profile.first_name}}" aria-label="first_name" aria-describedby="first_name-addon">
+                    <input type="text" id="first_name" name="first_name" class="form-control" value="{{profile.first_name}}" aria-label="first_name" aria-describedby="first_name-addon">
                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Last Name:</strong> </li>
-                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder="{{profile.last_name}}" aria-label="last_name" aria-describedby="last_name-addon">
+                    <input type="text" id="last_name" name="last_name" class="form-control" value="{{profile.last_name}}" aria-label="last_name" aria-describedby="last_name-addon">
                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Phone:</strong> </li>
-                    <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="{{profile.phoneNumber}}" aria-label="phoneNumber" aria-describedby="phoneNumber-addon">
+                    <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" value="{{profile.phoneNumber}}" aria-label="phoneNumber" aria-describedby="phoneNumber-addon">
                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">City:</strong></li>
-                    <input type="text" id="city" name="city" class="form-control" placeholder="{{profile.city}}" aria-label="city" aria-describedby="city-addon">
+                    <input type="text" id="city" name="city" class="form-control" value="{{profile.city}}" aria-label="city" aria-describedby="city-addon">
                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Bio:</strong></li>
-                    <input type="text" id="bio" name="bio" class="form-control" placeholder="{{profile.bio}}" aria-label="bio" aria-describedby="bio-addon">
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Bio:</strong></li>
-                    <input type="file" id="avatar" name="avatar" class="form-control" placeholder="{{profile.avatar}}" aria-label="avatar" aria-describedby="avatar-addon">
+                    <input type="text" id="bio" name="bio" class="form-control" value="{{profile.bio}}" aria-label="bio" aria-describedby="bio-addon">
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Avatar:</strong></li>
+                    <input type="file" id="avatar" name="avatar" class="form-control" value="{{profile.avatar}}" aria-label="avatar" aria-describedby="avatar-addon">
                     <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Save</button>
                  </ul>
               </form>
