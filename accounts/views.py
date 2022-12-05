@@ -1,13 +1,14 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView
+from django.contrib.auth import get_user_model, login
 from django.urls import reverse_lazy
 from django.views.generic import DetailView
 from django.views.generic.edit import FormView, UpdateView
 
-from .forms import MyUserCreationForm
+from .forms import MyUserCreationForm, CustomPasswordChangeForm
+
 from .models import User
-from django.contrib.auth import get_user_model, login
 
 
 class CustomLoginView(LoginView):
@@ -89,3 +90,38 @@ class UserInfo(LoginRequiredMixin, DetailView):
         if not request.user.is_authenticated:
             return redirect('home')
         return super(UserInfo, self).dispatch(request, *args, **kwargs)
+
+
+class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
+    form_class = CustomPasswordChangeForm
+    template_name = 'accounts/change_password.html'
+    fields = '__all__'
+    redirect_authenticated_user = True
+
+    def get_success_url(self):
+        return reverse_lazy('profile-detail')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('home')
+        return super(CustomPasswordChangeView, self).dispatch(request, *args, **kwargs)
+
+
+class EmailChangeView(LoginRequiredMixin, UpdateView):
+    template_name = 'accounts/change_email.html'
+    model = User
+    context_object_name = 'profile'
+    fields = ['email']
+    success_url = reverse_lazy('profile-detail')
+
+    def get_object(self):
+        return get_object_or_404(User, pk=self.request.user.id)
+
+    def get_success_url(self):
+        return reverse_lazy('profile-detail')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('home')
+        return super(EmailChangeView, self).dispatch(request, *args, **kwargs)
+
