@@ -71,6 +71,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                "core.context_processors.boards_list",
+                "core.context_processors.tasks_list",
             ],
         },
     },
