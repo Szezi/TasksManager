@@ -2,6 +2,220 @@
 {% load static %}
 {% block content %}
 
-<h1>Dashboard</h1>
+<div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Member of boards</p>
+                    <h5 class="font-weight-bolder mb-0">
+                      x
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="ni ni-folder-17 text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Tasks to do</p>
+                    <h5 class="font-weight-bolder mb-0">
+                      x
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="ni ni-watch-time text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Tasks in progress</p>
+                    <h5 class="font-weight-bolder mb-0">
+                      x
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="ni ni-user-run text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Tasks done</p>
+                    <h5 class="font-weight-bolder mb-0">
+                      x
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="ni ni-trophy text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-lg-7 mb-lg-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="d-flex flex-column h-100">
+                    <p class="mb-1 pt-2 text-bold">Kanban</p>
+                    <h5 class="font-weight-bolder">Create board</h5>
+                    <p class="mb-5">Create new tasks board and add members to control work progress.</p>
+                    <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="{% url 'board-create' %}">
+                      Create board
+                      <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-lg-5 ms-auto text-center mt-5 mt-lg-0">
+                  <div class="bg-gradient-primary border-radius-lg h-100">
+                    <img src="../static/img/shapes/waves-white.svg" class="position-absolute h-100 w-100 top-0 d-lg-block d-none" alt="waves">
+                    <div class="position-relative d-flex align-items-center justify-content-center h-100">
+                      <img class="w-60 position-relative z-index-2 pt-2" src="{% static 'img/illustrations/Kanban.png' %}" alt="rocket">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="card h-100 p-3">
+            <div class="overflow-hidden position-relative border-radius-lg bg-cover h-100" style="background-image: url('../static/img/ivancik.jpg');">
+              <span class="mask bg-gradient-dark"></span>
+              <div class="card-body position-relative z-index-1 d-flex flex-column h-100 p-3">
+                <h5 class="text-white font-weight-bolder mb-4 pt-2">Add new task</h5>
+                <p class="text-white">Add new tasks to one of yours Tasks Board.</p>
+                <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="{% url 'task-create' %}">
+                  Create task
+                  <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row my-4">
+        <div class="col-lg-12 col-md-6 mb-md-0 mb-4">
+          <div class="card">
+            <div class="card-header pb-0">
+              <div class="row">
+                <div class="col-lg-6 col-7">
+                  <h6>Tasks boards</h6>
+                  <p class="text-sm mb-0">
+                    <i class="ni ni-money-coins text-dark text-gradien" aria-hidden="true"></i>
+                    <span class="font-weight-bold ms-1">Number of boards:</span> x
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="card-body h-500 px-0 pb-2" >
+              <div class="table-responsive">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Board</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Members</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ToDo</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">InProgress</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Done</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Completion</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for board in boards %}
+                      {% for member in board.members.all %}
+                        {% if request.user == member %}
+                          <tr>
+                            <td>
+                              <div class="d-flex px-2 py-1">
+                                <div>
+                                  <img src="{% static 'img/illustrations/Kanban.png' %}" class="avatar avatar-sm me-3" alt="xd">
+                                </div>
+                                <div class="d-flex flex-column justify-content-center">
+                                  <h6 class="mb-0 text-sm">{{board.name}}</h6>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="avatar-group mt-2">
+                                {% for member in board.members.all %}
+                                  <a href="{% url 'profile-info' member.id%}" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{member}}">
+                                    <img src="{{member.avatar.url}}" alt="{{board.name}}">
+                                  </a>
+                                {% endfor %}
+                              </div>
+                            </td>
+                            <td class="align-middle text-center text-sm">
+                              <span class="text-xs font-weight-bold"> x </span>
+                            </td>
+                            <td class="align-middle text-center text-sm">
+                              <span class="text-xs font-weight-bold"> x</span>
+                            </td>
+                            <td class="align-middle text-center text-sm">
+                              <span class="text-xs font-weight-bold"> x </span>
+                            </td>
+                            <td class="align-middle">
+                              <div class="progress-wrapper w-75 mx-auto">
+                                <div class="progress-info">
+                                  <div class="progress-percentage">
+                                    <span class="text-xs font-weight-bold">60%</span>
+                                  </div>
+                                </div>
+                                <div class="progress">
+                                  <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        {% endif %}
+                      {% endfor %}
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 {% endblock content %}
