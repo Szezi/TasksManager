@@ -67,7 +67,7 @@ class TasksBoardDetail(LoginRequiredMixin, DetailView):
 class TasksBoardCreate(LoginRequiredMixin, CreateView):
     template_name = 'boards/board_form.html'
     model = TasksBoard
-    fields = ['name', 'description', 'members']
+    fields = ['owner', 'name', 'description', 'members']
     success_url = reverse_lazy('dashboard')
 
     def form_valid(self, form):
