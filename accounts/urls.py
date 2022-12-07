@@ -8,7 +8,7 @@ urlpatterns = [
     path('login', CustomLoginView.as_view(), name='login'),
     path('register', CustomRegisterView.as_view(), name='register'),
     path('logout', LogoutView.as_view(next_page='home'), name='logout'),
-    path('profile-info/<int:pk>/', UserInfo.as_view(), name='profile-detail'),
+    path('profile-info/<int:pk>/', UserInfo.as_view(), name='profile-info'),
     path('profile-detail', UserDetail.as_view(), name='profile-detail'),
     path('profile-update', UserUpdate.as_view(), name='profile-update'),
     path('password-change', CustomPasswordChangeView.as_view(), name='password-change'),
