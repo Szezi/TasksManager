@@ -4,7 +4,7 @@ from accounts.models import User
 
 
 class TasksBoard(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     name = models.CharField(default='New Board', max_length=200)
     description = models.TextField(null=True, blank=True, default='Board description')
     members = models.ManyToManyField(
@@ -19,7 +19,7 @@ class TasksBoard(models.Model):
 
 
 class Task(models.Model):
-    board = models.ForeignKey(TasksBoard, on_delete=models.CASCADE, null=True, blank=True)
+    board = models.ForeignKey(TasksBoard, on_delete=models.CASCADE, null=False, blank=True)
     title = models.CharField(default='New task', max_length=200)
     description = models.CharField(max_length=100, null=True, blank=True, default='Task description')
     notes = models.TextField(null=True, blank=True)
@@ -45,5 +45,11 @@ class Task(models.Model):
         ordering = ['deadline']
 
 
+class PinedTask(models.Model):
+    owner = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return "PinedTask"
 
 
