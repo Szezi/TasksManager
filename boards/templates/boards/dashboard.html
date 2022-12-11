@@ -196,49 +196,73 @@
         </div>
         <div class="col-lg-6 col-md-6 mb-md-0 mb-4">
           <div class="card" style="min-height: 22rem;">
-            <div class="card-header pb-0">
-              <div class="row">
-                <div class="col-md-8 d-flex align-items-center">
-                  <h6 class="mb-0">Pined task</h6>
-                </div>
-                <div class="col-md-4 text-end">
-                    <a class="btn btn-link text-danger text-gradient px-1 mb-0" href=""><i class="far fa-trash-alt me-2"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body h-100 px-0 pb-2" >
-              <div class="container">
-                <div class="row mb-3">
-                  <div class="col">
-                    <span>Task Title</span>
+            {% if pined_tasks %}
+              {% for task in pined_tasks %}
+                {% if task.owner == request.user %}
+                  <div class="card-header pb-0">
+                    <div class="row">
+                      <div class="col-md-8 d-flex align-items-center">
+                        <h6 class="mb-0">Pined task</h6>
+                      </div>
+                      <div class="col-md-4 text-end">
+                          <a class="btn btn-link text-danger text-gradient px-1 mb-0" href="{% url 'pined_task-delete' task.id%}"><i class="far fa-trash-alt me-2"></i></a>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-8">
-                   <li class="list-group">
-                        <span class="mb-2 text-xs">State: <span class="text-dark font-weight-bold ms-sm-2"></br>In progress</span></span>
-                        <span class="mb-2 text-xs">Description: <span class="text-dark ms-sm-2 font-weight-bold"></br>Short tasks description</span></span>
-                        <span class="mb-2 text-xs">Notes: <span class="text-dark font-weight-bold ms-sm-2"></br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></span>
-                   </li>
+                  <div class="card-body h-100 px-0 pb-2" >
+                    <div class="container">
+                      <div class="row mb-3">
+                        <div class="col">
+                          <span>{{ task.task.title }}</span>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col-8">
+                         <li class="list-group">
+                              <span class="mb-2 text-xs">State: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.task.state}}</span></span>
+                              <span class="mb-2 text-xs">Description: <span class="text-dark ms-sm-2 font-weight-bold"></br>{{task.task.description}}</span></span>
+                              <span class="mb-2 text-xs">Notes: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.task.notes}}</span></span>
+                         </li>
+                        </div>
+                        <div class="col">
+                          <li class="list-group">
+                              <span class="mb-2 text-xs">Created: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.task.created}}</span></span>
+                              <span class="mb-2 text-xs">Deadline: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.task.deadline}}</span></span>
+                              <span class="mb-2 text-xs">Assigned to: <span class="text-dark font-weight-bold ms-sm-2"></br>
+                                <div class="avatar-group mt-2">
+                                  {% for member in task.task.assigned_to.all %}
+                                    <a href="{% url 'profile-info' member.id%}" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{member}}">
+                                        <img alt="Image placeholder" src="{{member.avatar.url}}">
+                                    </a>
+                                  {% endfor %}
+                                </div>
+                              </span></span>
+                         </li>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col">
-                    <li class="list-group">
-                        <span class="mb-2 text-xs">Created: <span class="text-dark font-weight-bold ms-sm-2"></br>12/12/2022</span></span>
-                        <span class="mb-2 text-xs">Deadline: <span class="text-dark font-weight-bold ms-sm-2"></br>24/12/2022</span></span>
-                        <span class="mb-2 text-xs">Assigned to: <span class="text-dark font-weight-bold ms-sm-2"></br>
-                          <div class="avatar-group mt-2">
-                            {% for member in task.assigned_to.all %}
-                              <a href="{% url 'profile-info' member.id%}" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{member}}">
-                                  <img alt="Image placeholder" src="{{member.avatar.url}}">
-                              </a>
-                            {% endfor %}
-                          </div>
-                        </span></span>
-                   </li>
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              <div class="card-header pb-0">
+                    <div class="row">
+                      <div class="col-md-8 d-flex align-items-center mb-6">
+                        <h6 class="mb-0">Pined task</h6>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
+              <div class="card-body h-100 px-0 pb-2" >
+                    <div class="container">
+                      <div class="row mb-3 ">
+                          <p class="text-center">Pin up task to have a quick reminder of yours most important things to do.</p>
+                      </div>
+                      <div class="row mb-3 ">
+                          <a class="btn btn-link mb-0" href="{% url 'pined_task-create' %}">Select task</a>
+                      </div>
+                    </div>
+                  </div>
+            {% endif %}
           </div>
         </div>
       </div>
