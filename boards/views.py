@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.views.generic.list import ListView
 
-from .models import Task, TasksBoard
+from .models import Task, TasksBoard, PinedTask
 
 
 class DashboardView(ListView):
@@ -19,6 +19,8 @@ class DashboardView(ListView):
         context['users_in_progress'] = context['tasks'].filter(state=2, assigned_to=self.request.user).count()
         context['users_done'] = context['tasks'].filter(state=3, assigned_to=self.request.user).count()
         context['boards_member'] = TasksBoard.objects.filter(members=self.request.user).count()
+
+        context['pined_tasks'] = PinedTask.objects.all()
 
         return context
 
@@ -113,3 +115,26 @@ class TasksBoardDelete(LoginRequiredMixin, DeleteView):
         if not request.user.is_authenticated:
             return redirect('home')
         return super(TasksBoardDelete, self).dispatch(request, *args, **kwargs)
+
+
+class PinedTaskCreate(LoginRequiredMixin, CreateView):
+    template_name = 'boards/pinedtask_form.html'
+    model = PinedTask
+    fields = ['owner', 'task']
+    success_url = reverse_lazy('dashboard')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('home')
+        return super(PinedTaskCreate, self).dispatch(request, *args, **kwargs)
+
+
+class PinedTaskDelete(LoginRequiredMixin, DeleteView):
+    model = PinedTask
+    context_object_name = 'pined_task'
+    success_url = reverse_lazy('dashboard')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('home')
+        return super(PinedTaskDelete, self).dispatch(request, *args, **kwargs)
