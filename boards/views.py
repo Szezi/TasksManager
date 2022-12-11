@@ -8,8 +8,19 @@ from django.views.generic.list import ListView
 from .models import Task, TasksBoard
 
 
-class DashboardView(TemplateView):
+class DashboardView(ListView):
     template_name = "boards/dashboard.html"
+    model = Task
+    context_object_name = 'tasks'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['users_next'] = context['tasks'].filter(state=1, assigned_to=self.request.user).count()
+        context['users_in_progress'] = context['tasks'].filter(state=2, assigned_to=self.request.user).count()
+        context['users_done'] = context['tasks'].filter(state=3, assigned_to=self.request.user).count()
+        context['boards_member'] = TasksBoard.objects.filter(members=self.request.user).count()
+
+        return context
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -20,7 +31,7 @@ class DashboardView(TemplateView):
 class TaskCreate(LoginRequiredMixin, CreateView):
     template_name = 'boards/task_form.html'
     model = Task
-    fields = ['title', 'description', 'deadline', 'state', 'board', 'assigned_to']
+    fields = ['title', 'description', 'notes', 'deadline', 'state', 'board', 'assigned_to']
     success_url = reverse_lazy('dashboard')
 
     def dispatch(self, request, *args, **kwargs):
@@ -32,7 +43,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'boards/task_update.html'
     model = Task
-    fields = ['title', 'description', 'deadline', 'state', 'board', 'assigned_to']
+    fields = ['title', 'description', 'notes', 'deadline', 'state', 'board', 'assigned_to']
     context_object_name = 'task'
     success_url = reverse_lazy('dashboard')
 
