@@ -12,7 +12,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Member of boards</p>
                     <h5 class="font-weight-bolder mb-0">
-                      x
+                      {{boards_member}}
                     </h5>
                   </div>
                 </div>
@@ -33,7 +33,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Tasks to do</p>
                     <h5 class="font-weight-bolder mb-0">
-                      x
+                      {{users_next}}
                     </h5>
                   </div>
                 </div>
@@ -54,7 +54,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Tasks in progress</p>
                     <h5 class="font-weight-bolder mb-0">
-                      x
+                      {{users_in_progress}}
                     </h5>
                   </div>
                 </div>
@@ -75,7 +75,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Tasks done</p>
                     <h5 class="font-weight-bolder mb-0">
-                      x
+                      {{users_done}}
                     </h5>
                   </div>
                 </div>
@@ -134,30 +134,27 @@
         </div>
       </div>
       <div class="row my-4">
-        <div class="col-lg-12 col-md-6 mb-md-0 mb-4">
-          <div class="card">
+        <div class="col-lg-6 col-md-6 mb-md-0 mb-4">
+          <div class="card" style="min-height: 22rem;">
             <div class="card-header pb-0">
               <div class="row">
                 <div class="col-lg-6 col-7">
                   <h6>Tasks boards</h6>
                   <p class="text-sm mb-0">
                     <i class="ni ni-money-coins text-dark text-gradien" aria-hidden="true"></i>
-                    <span class="font-weight-bold ms-1">Number of boards:</span> x
+                    <span class="font-weight-bold ms-1">Number of boards:</span> {{boards_member}}
                   </p>
                 </div>
               </div>
             </div>
-            <div class="card-body h-500 px-0 pb-2" >
+            <div class="card-body px-0 pb-2 h-100" >
               <div class="table-responsive">
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Board</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Members</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ToDo</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">InProgress</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Done</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Completion</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">View</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -185,25 +182,7 @@
                               </div>
                             </td>
                             <td class="align-middle text-center text-sm">
-                              <span class="text-xs font-weight-bold"> x </span>
-                            </td>
-                            <td class="align-middle text-center text-sm">
-                              <span class="text-xs font-weight-bold"> x</span>
-                            </td>
-                            <td class="align-middle text-center text-sm">
-                              <span class="text-xs font-weight-bold"> x </span>
-                            </td>
-                            <td class="align-middle">
-                              <div class="progress-wrapper w-75 mx-auto">
-                                <div class="progress-info">
-                                  <div class="progress-percentage">
-                                    <span class="text-xs font-weight-bold">60%</span>
-                                  </div>
-                                </div>
-                                <div class="progress">
-                                  <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                              </div>
+                              <a class="btn btn-link mb-0" href="{% url 'board-detail' board.id %}">View</a>
                             </td>
                           </tr>
                         {% endif %}
@@ -211,6 +190,53 @@
                     {% endfor %}
                   </tbody>
                 </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-md-0 mb-4">
+          <div class="card" style="min-height: 22rem;">
+            <div class="card-header pb-0">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Pined task</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                    <a class="btn btn-link text-danger text-gradient px-1 mb-0" href=""><i class="far fa-trash-alt me-2"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body h-100 px-0 pb-2" >
+              <div class="container">
+                <div class="row mb-3">
+                  <div class="col">
+                    <span>Task Title</span>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-8">
+                   <li class="list-group">
+                        <span class="mb-2 text-xs">State: <span class="text-dark font-weight-bold ms-sm-2"></br>In progress</span></span>
+                        <span class="mb-2 text-xs">Description: <span class="text-dark ms-sm-2 font-weight-bold"></br>Short tasks description</span></span>
+                        <span class="mb-2 text-xs">Notes: <span class="text-dark font-weight-bold ms-sm-2"></br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></span>
+                   </li>
+                  </div>
+                  <div class="col">
+                    <li class="list-group">
+                        <span class="mb-2 text-xs">Created: <span class="text-dark font-weight-bold ms-sm-2"></br>12/12/2022</span></span>
+                        <span class="mb-2 text-xs">Deadline: <span class="text-dark font-weight-bold ms-sm-2"></br>24/12/2022</span></span>
+                        <span class="mb-2 text-xs">Assigned to: <span class="text-dark font-weight-bold ms-sm-2"></br>
+                          <div class="avatar-group mt-2">
+                            {% for member in task.assigned_to.all %}
+                              <a href="{% url 'profile-info' member.id%}" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{member}}">
+                                  <img alt="Image placeholder" src="{{member.avatar.url}}">
+                              </a>
+                            {% endfor %}
+                          </div>
+                        </span></span>
+                   </li>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
