@@ -21,7 +21,8 @@ class TasksBoard(models.Model):
 class Task(models.Model):
     board = models.ForeignKey(TasksBoard, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(default='New task', max_length=200)
-    description = models.TextField(null=True, blank=True, default='Task description')
+    description = models.CharField(max_length=100, null=True, blank=True, default='Task description')
+    notes = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     deadline = models.DateTimeField(null=True, blank=True)
     assigned_to = models.ManyToManyField(
