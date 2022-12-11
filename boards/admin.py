@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Task, TasksBoard
+from .models import Task, TasksBoard, PinedTask
 # Register your models here.
 admin.site.register(Task)
 admin.site.register(TasksBoard)
+admin.site.register(PinedTask)
+
