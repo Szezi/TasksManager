@@ -101,26 +101,31 @@
                 {% for task in tasks %}
                   {% if task.board.name == board.name %}
                     {% for member in board.members.all %}
-                        {% if member == request.user %}
-                          {% if task.state == 2 %}
-                            <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                              <div class="d-flex flex-column">
-                                <h6 class="mb-3 text-sm">{{ task.title }}</h6>
-                                <span class="mb-2 text-xs">Created: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.created}}</span></span>
-                                <span class="mb-2 text-xs">Description: <span class="text-dark ms-sm-2 font-weight-bold"></br>{{task.description}}</span></span>
-                                <span class="mb-2 text-xs">Deadline: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.deadline}}</span></span>
-                                <span class="mb-2 text-xs">Assigned to: <span class="text-dark font-weight-bold ms-sm-2"></br>
-                                  {% for member in task.assigned_to.all %}
-                                    {{member}},
-                                  {% endfor %}
+                      {% if member == request.user %}
+                        {% if task.state == 2 %}
+                        <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                          <div class="d-flex flex-column">
+                            <h6 class="mb-3 text-sm">{{ task.title }}</h6>
+                            <span class="mb-2 text-xs">Created: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.created}}</span></span>
+                            <span class="mb-2 text-xs">Description: <span class="text-dark ms-sm-2 font-weight-bold"></br>{{task.description}}</span></span>
+                            <span class="mb-2 text-xs">Deadline: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.deadline}}</span></span>
+                            <span class="mb-2 text-xs">Assigned to: <span class="text-dark font-weight-bold ms-sm-2"></br>
+                              <div class="avatar-group mt-2">
+                                {% for member in task.assigned_to.all %}
+                                  <a href="{% url 'profile-info' member.id%}" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{member}}">
+                                      <img alt="Image placeholder" src="{{member.avatar.url}}">
+                                  </a>
+                                {% endfor %}
                               </div>
-                              <div class="ms-auto text-end">
-                                <a class="btn btn-link text-danger text-gradient px-1 mb-0" href="{% url 'task-delete' task.id %}"><i class="far fa-trash-alt me-2"></i></a>
-                                <a class="btn btn-link text-dark px-1 mb-0" href="{% url 'task-update' task.id %}"><i class="fas fa-pencil-alt text-dark me-2"></i></a>
-                              </div>
-                            </li>
-                          {% endif %}
+                            </span></span>
+                          </div>
+                          <div class="ms-auto text-end">
+                            <a class="btn btn-link text-danger text-gradient px-1 mb-0" href="{% url 'task-delete' task.id %}"><i class="far fa-trash-alt me-2"></i></a>
+                            <a class="btn btn-link text-dark px-1 mb-0" href="{% url 'task-update' task.id %}"><i class="fas fa-pencil-alt text-dark me-2"></i></a>
+                          </div>
+                        </li>
                         {% endif %}
+                      {% endif %}
                     {% endfor %}
                   {% endif %}
                 {% endfor %}
@@ -152,9 +157,13 @@
                             <span class="mb-2 text-xs">Description: <span class="text-dark ms-sm-2 font-weight-bold"></br>{{task.description}}</span></span>
                             <span class="mb-2 text-xs">Deadline: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.deadline}}</span></span>
                             <span class="mb-2 text-xs">Assigned to: <span class="text-dark font-weight-bold ms-sm-2"></br>
-                              {% for member in task.assigned_to.all %}
-                                {{member}},
-                              {% endfor %}
+                              <div class="avatar-group mt-2">
+                                {% for member in task.assigned_to.all %}
+                                  <a href="{% url 'profile-info' member.id%}" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{member}}">
+                                      <img alt="Image placeholder" src="{{member.avatar.url}}">
+                                  </a>
+                                {% endfor %}
+                              </div>
                             </span></span>
                           </div>
                           <div class="ms-auto text-end">
