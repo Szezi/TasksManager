@@ -1,8 +1,7 @@
-from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, TemplateView
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
 from .models import Task, TasksBoard, PinedTask
@@ -19,8 +18,8 @@ class DashboardView(ListView):
         context['users_in_progress'] = context['tasks'].filter(state=2, assigned_to=self.request.user).count()
         context['users_done'] = context['tasks'].filter(state=3, assigned_to=self.request.user).count()
         context['boards_member'] = TasksBoard.objects.filter(members=self.request.user).count()
-
-        context['pined_tasks'] = PinedTask.objects.all()
+        context['boards_admin'] = TasksBoard.objects.filter(admin=self.request.user).count()
+        context['pined_tasks'] = PinedTask.objects.filter(owner=self.request.user)
 
         return context
 
@@ -40,6 +39,9 @@ class TaskCreate(LoginRequiredMixin, CreateView):
         if not request.user.is_authenticated:
             return redirect('home')
         return super(TaskCreate, self).dispatch(request, *args, **kwargs)
+
+    def get_initial(self):
+        return {'assigned_to': self.request.user}
 
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
@@ -80,12 +82,15 @@ class TasksBoardDetail(LoginRequiredMixin, DetailView):
 class TasksBoardCreate(LoginRequiredMixin, CreateView):
     template_name = 'boards/board_form.html'
     model = TasksBoard
-    fields = ['owner', 'name', 'description', 'members']
+    fields = ['name', 'description', 'admin', 'members']
     success_url = reverse_lazy('dashboard')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(TasksBoardCreate, self).form_valid(form)
+
+    def get_initial(self):
+        return {'admin': self.request.user, 'members': self.request.user}
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -96,7 +101,7 @@ class TasksBoardCreate(LoginRequiredMixin, CreateView):
 class TasksBoardUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'boards/board_update.html'
     model = TasksBoard
-    fields = ['name', 'description', 'members']
+    fields = ['name', 'description', 'admin', 'members']
     context_object_name = 'board'
     success_url = reverse_lazy('dashboard')
 
@@ -123,10 +128,25 @@ class PinedTaskCreate(LoginRequiredMixin, CreateView):
     fields = ['owner', 'task']
     success_url = reverse_lazy('dashboard')
 
+    def get_initial(self):
+        return {'owner': self.request.user}
+
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect('home')
         return super(PinedTaskCreate, self).dispatch(request, *args, **kwargs)
+
+
+class PinedTaskUpdate(LoginRequiredMixin, UpdateView):
+    template_name = 'boards/pinedtask_form.html'
+    model = TasksBoard
+    fields = ['owner', 'task']
+    success_url = reverse_lazy('dashboard')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('home')
+        return super(PinedTaskUpdate, self).dispatch(request, *args, **kwargs)
 
 
 class PinedTaskDelete(LoginRequiredMixin, DeleteView):
