@@ -139,10 +139,10 @@
             <div class="card-header pb-0">
               <div class="row">
                 <div class="col-lg-6 col-7">
-                  <h6>Tasks boards</h6>
+                  <h6>Tasks boards administration</h6>
                   <p class="text-sm mb-0">
                     <i class="ni ni-money-coins text-dark text-gradien" aria-hidden="true"></i>
-                    <span class="font-weight-bold ms-1">Number of boards:</span> {{boards_member}}
+                    <span class="font-weight-bold ms-1">Number of boards:</span> {{boards_admin}}
                   </p>
                 </div>
               </div>
@@ -159,7 +159,7 @@
                   </thead>
                   <tbody>
                     {% for board in boards %}
-                      {% for member in board.members.all %}
+                      {% for member in board.admin.all %}
                         {% if request.user == member %}
                           <tr>
                             <td>
@@ -219,7 +219,7 @@
                       <div class="row mb-3">
                         <div class="col-8">
                          <li class="list-group">
-                              <span class="mb-2 text-xs">State: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.task.state}}</span></span>
+                              <span class="mb-2 text-xs">State: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.task.get_state_display}}</span></span>
                               <span class="mb-2 text-xs">Description: <span class="text-dark ms-sm-2 font-weight-bold"></br>{{task.task.description}}</span></span>
                               <span class="mb-2 text-xs">Notes: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.task.notes}}</span></span>
                          </li>
