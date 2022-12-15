@@ -35,6 +35,12 @@ class TaskCreate(LoginRequiredMixin, CreateView):
     fields = ['title', 'description', 'notes', 'deadline', 'state', 'board', 'assigned_to']
     success_url = reverse_lazy('dashboard')
 
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)  # Get the form as usual
+        user = self.request.user
+        form.fields['board'].queryset = TasksBoard.objects.filter(members=user)
+        return form
+
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect('home')
@@ -50,6 +56,12 @@ class TaskUpdate(LoginRequiredMixin, UpdateView):
     fields = ['title', 'description', 'notes', 'deadline', 'state', 'board', 'assigned_to']
     context_object_name = 'task'
     success_url = reverse_lazy('dashboard')
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)  # Get the form as usual
+        user = self.request.user
+        form.fields['board'].queryset = TasksBoard.objects.filter(members=user)
+        return form
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -128,6 +140,12 @@ class PinedTaskCreate(LoginRequiredMixin, CreateView):
     fields = ['owner', 'task']
     success_url = reverse_lazy('dashboard')
 
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)  # Get the form as usual
+        user = self.request.user
+        form.fields['task'].queryset = Task.objects.filter(assigned_to=user)
+        return form
+
     def get_initial(self):
         return {'owner': self.request.user}
 
@@ -142,6 +160,12 @@ class PinedTaskUpdate(LoginRequiredMixin, UpdateView):
     model = TasksBoard
     fields = ['owner', 'task']
     success_url = reverse_lazy('dashboard')
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)  # Get the form as usual
+        user = self.request.user
+        form.fields['task'].queryset = Task.objects.filter(assigned_to=user)
+        return form
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
