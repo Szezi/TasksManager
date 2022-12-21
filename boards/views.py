@@ -5,6 +5,7 @@ from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
 from .models import Task, TasksBoard, PinedTask
+from boards.filters import TaskFilter
 
 
 class DashboardView(ListView):
@@ -84,6 +85,13 @@ class TasksBoardDetail(LoginRequiredMixin, DetailView):
     template_name = 'boards/board_detail.html'
     model = TasksBoard
     context_object_name = 'board'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tasks'] = Task.objects.all()
+        context['filter'] = TaskFilter(self.request.GET, queryset=context['tasks'])
+        context['tasks'] = context['filter'].qs
+        return context
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
