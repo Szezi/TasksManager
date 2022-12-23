@@ -72,7 +72,7 @@
                         {% if task.state == 1 %}
                         <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                           <div class="d-flex flex-column">
-                            <h6 class="mb-3 text-sm">{{ task.title }}</h6>
+                            <h6 class="mb-3 text-sm" data-bs-toggle="modal" data-bs-target="#nextModal">{{ task.title }}</h6>
                             <span class="mb-2 text-xs">Created: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.created}}</span></span>
                             <span class="mb-2 text-xs">Description: <span class="text-dark ms-sm-2 font-weight-bold"></br>{{task.description}}</span></span>
                             <span class="mb-2 text-xs">Deadline: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.deadline}}</span></span>
@@ -85,11 +85,49 @@
                                 {% endfor %}
                               </div>
                             </span></span>
+                            <!-- Button trigger modal -->
+                            <a class="btn btn-link text-dark ps-0 mb-0 ms-auto" data-bs-toggle="modal" data-bs-target="#nextModal">View Task Details</a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="nextModal" tabindex="-1" role="dialog" aria-labelledby="nextModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="nextModalLabel">{{ task.title }}</h5>
+                                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <ul class="list-group">
+                                      <li class="list-group-item border-0 d-flex p-4 mb-2 border-radius-lg">
+                                        <div class="d-flex flex-column">
+                                          <span class="mb-2 text-xs">State: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.get_state_display}}</span></span>
+                                          <span class="mb-2 text-xs">Description: <span class="text-dark ms-sm-2 font-weight-bold"></br>{{task.description}}</span></span>
+                                          <span class="mb-2 text-xs">Notes: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.notes}}</span></span>
+                                          <span class="mb-2 text-xs">Created: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.created}}</span></span>
+                                          <span class="mb-2 text-xs">Deadline: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.deadline}}</span></span>
+                                          <span class="mb-2 text-xs">Assigned to: <span class="text-dark font-weight-bold ms-sm-2"></br>
+                                            <div class="avatar-group mt-2">
+                                              {% for member in task.assigned_to.all %}
+                                                <a href="{% url 'profile-info' member.id%}" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{member}}">
+                                                    <img alt="Image placeholder" src="{{member.avatar.url}}">
+                                                </a>
+                                              {% endfor %}
+                                            </div>
+                                          </span></span>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                           <div class="ms-auto text-end">
                             <a class="btn btn-link text-danger text-gradient px-1 mb-0" href="{% url 'task-delete' task.id %}"><i class="far fa-trash-alt me-2"></i></a>
                             <a class="btn btn-link text-dark px-1 mb-0" href="{% url 'task-update' task.id %}"><i class="fas fa-pencil-alt text-dark me-2"></i></a>
                           </div>
+
                         </li>
                         {% endif %}
                       {% endif %}
@@ -119,7 +157,7 @@
                         {% if task.state == 2 %}
                         <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                           <div class="d-flex flex-column">
-                            <h6 class="mb-3 text-sm">{{ task.title }}</h6>
+                            <h6 class="mb-3 text-sm" data-bs-toggle="modal" data-bs-target="#nextModal">{{ task.title }}</h6>
                             <span class="mb-2 text-xs">Created: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.created}}</span></span>
                             <span class="mb-2 text-xs">Description: <span class="text-dark ms-sm-2 font-weight-bold"></br>{{task.description}}</span></span>
                             <span class="mb-2 text-xs">Deadline: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.deadline}}</span></span>
@@ -132,6 +170,43 @@
                                 {% endfor %}
                               </div>
                             </span></span>
+                            <!-- Button trigger modal -->
+                            <a class="btn btn-link text-dark ps-0 mb-0 ms-auto" data-bs-toggle="modal" data-bs-target="#inprogressModal">View Task Details</a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="inprogressModal" tabindex="-1" role="dialog" aria-labelledby="inprogressModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="inprogressModalLabel">{{ task.title }}</h5>
+                                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <ul class="list-group">
+                                      <li class="list-group-item border-0 d-flex p-4 mb-2 border-radius-lg">
+                                        <div class="d-flex flex-column">
+                                          <span class="mb-2 text-xs">State: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.get_state_display}}</span></span>
+                                          <span class="mb-2 text-xs">Description: <span class="text-dark ms-sm-2 font-weight-bold"></br>{{task.description}}</span></span>
+                                          <span class="mb-2 text-xs">Notes: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.notes}}</span></span>
+                                          <span class="mb-2 text-xs">Created: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.created}}</span></span>
+                                          <span class="mb-2 text-xs">Deadline: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.deadline}}</span></span>
+                                          <span class="mb-2 text-xs">Assigned to: <span class="text-dark font-weight-bold ms-sm-2"></br>
+                                            <div class="avatar-group mt-2">
+                                              {% for member in task.assigned_to.all %}
+                                                <a href="{% url 'profile-info' member.id%}" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{member}}">
+                                                    <img alt="Image placeholder" src="{{member.avatar.url}}">
+                                                </a>
+                                              {% endfor %}
+                                            </div>
+                                          </span></span>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                           <div class="ms-auto text-end">
                             <a class="btn btn-link text-danger text-gradient px-1 mb-0" href="{% url 'task-delete' task.id %}"><i class="far fa-trash-alt me-2"></i></a>
@@ -166,7 +241,7 @@
                         {% if task.state == 3 %}
                         <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                           <div class="d-flex flex-column">
-                            <h6 class="mb-3 text-sm">{{ task.title }}</h6>
+                            <h6 class="mb-3 text-sm" data-bs-toggle="modal" data-bs-target="#nextModal">{{ task.title }}</h6>
                             <span class="mb-2 text-xs">Created: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.created}}</span></span>
                             <span class="mb-2 text-xs">Description: <span class="text-dark ms-sm-2 font-weight-bold"></br>{{task.description}}</span></span>
                             <span class="mb-2 text-xs">Deadline: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.deadline}}</span></span>
@@ -179,6 +254,43 @@
                                 {% endfor %}
                               </div>
                             </span></span>
+                            <!-- Button trigger modal -->
+                            <a class="btn btn-link text-dark ps-0 mb-0 ms-auto" data-bs-toggle="modal" data-bs-target="#doneModal">View Task Details</a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="doneModal" tabindex="-1" role="dialog" aria-labelledby="doneModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="doneModalLabel">{{ task.title }}</h5>
+                                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <ul class="list-group">
+                                      <li class="list-group-item border-0 d-flex p-4 mb-2 border-radius-lg">
+                                        <div class="d-flex flex-column">
+                                          <span class="mb-2 text-xs">State: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.get_state_display}}</span></span>
+                                          <span class="mb-2 text-xs">Description: <span class="text-dark ms-sm-2 font-weight-bold"></br>{{task.description}}</span></span>
+                                          <span class="mb-2 text-xs">Notes: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.notes}}</span></span>
+                                          <span class="mb-2 text-xs">Created: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.created}}</span></span>
+                                          <span class="mb-2 text-xs">Deadline: <span class="text-dark font-weight-bold ms-sm-2"></br>{{task.deadline}}</span></span>
+                                          <span class="mb-2 text-xs">Assigned to: <span class="text-dark font-weight-bold ms-sm-2"></br>
+                                            <div class="avatar-group mt-2">
+                                              {% for member in task.assigned_to.all %}
+                                                <a href="{% url 'profile-info' member.id%}" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{member}}">
+                                                    <img alt="Image placeholder" src="{{member.avatar.url}}">
+                                                </a>
+                                              {% endfor %}
+                                            </div>
+                                          </span></span>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                           <div class="ms-auto text-end">
                             <a class="btn btn-link text-danger text-gradient px-1 mb-0" href="{% url 'task-delete' task.id %}"><i class="far fa-trash-alt me-2"></i></a>
