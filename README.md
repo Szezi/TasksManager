@@ -1,8 +1,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/Szezi/ManipulatorApp">
-    <img src="data\images\dashboard.png" alt="Logo" width="50" height="50">
+  <a href="https://github.com/Szezi/TasksManager">
+    <img src="data\images\dashboard.png" alt="Dashboard" width="500" height="500">
   </a>
 <h3 align="center">TasksManager</h3>
   <p align="center">
@@ -79,9 +79,54 @@ To run this project, create virtual environment and install it locally.
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+TasksManager is a web application that allows users to create multi-users kanban boards and tasks. Application allows user to fill information about themselves in profile page and see stats on dashboard. <br />
+
+### Home page
+
 <div align="center">
-<img src="data\images\home.jpg" alt="Project_arduino">
+<img src="data\images\home.png" alt="home">
 </div>
+
+Application welcome user with home page. It allows user to log in or create new account.
+If user is already logged in it automatically redirect user to dashboard page. Moreover, if user is logged in it is forbidden to create new account.
+
+
+### Profile
+
+<div align="center">
+<img src="data\images\profile.png" alt="home">
+</div>
+
+User during registration creates new profile with avatar, description and basic information about user.
+
+### Dashboard
+
+<div align="center">
+<img src="data\images\dashboard.png" alt="home">
+</div>
+
+Dashboard page allows user to keep track with basic information about its tasks. 
+On top there are stats with numer of task done, in progress, to do and number of boards user is member of.
+On dashboard page user also can create new board and task, keep track on boards is administrator of and also pin most important task to do.
+
+### Kanban board
+
+<div align="center">
+<img src="data\images\board_create.png" alt="home">
+</div>
+
+User can create his own kanban board. All he needs to do is select who will be its administrators, fill name and description of the board and add other members.
+
+<div align="center">
+<img src="data\images\kanban_board.png" alt="home">
+</div>
+
+Board has three columns: next, in progress and done. User can add new task, fill the info and assigned it to the members of the board.
+<div align="center">
+<img src="data\images\task_detail.png" alt="home">
+</div>
+
+To see more details user need to click on the name of task or the button to view the modal with tasks details.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
