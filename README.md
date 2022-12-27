@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/Szezi/TasksManager">
-    <img src="data\images\dashboard.png" alt="Dashboard" width="500" height="500">
+    <img src="data\images\dashboard.png" alt="Dashboard">
   </a>
 <h3 align="center">TasksManager</h3>
   <p align="center">
@@ -80,6 +80,9 @@ To run this project, create virtual environment and install it locally.
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 TasksManager is a web application that allows users to create multi-users kanban boards and tasks. Application allows user to fill information about themselves in profile page and see stats on dashboard. <br />
+To see different pages of application user need to be logged in. If unauthorised user try to view other pages will be automatically redirect to Home page.
+
+Frontend design is based on :https://www.creative-tim.com/product/soft-ui-dashboard
 
 ### Home page
 
@@ -122,6 +125,8 @@ User can create his own kanban board. All he needs to do is select who will be i
 </div>
 
 Board has three columns: next, in progress and done. User can add new task, fill the info and assigned it to the members of the board.
+Board also has filtering that allows user to view specific type of tasks.
+
 <div align="center">
 <img src="data\images\task_detail.png" alt="home">
 </div>
